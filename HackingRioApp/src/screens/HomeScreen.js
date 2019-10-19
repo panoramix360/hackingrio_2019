@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { HeaderBar } from '../components';
+import { HeaderBar, IconBall } from '../components';
 import { SafeAreaView } from 'react-navigation';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+
+const { width, height } = Dimensions.get("screen");
 
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            region: {
+                latitude: -22.9024809,
+                longitude: -43.1988859,
+                latitudeDelta: 0.0222,
+                longitudeDelta: 0.0221,
+            },
             markers: [
                 { id: 1, latlng: { latitude: -22.8975487, longitude: -43.2058189 }, image: require('../assets/pin_br.png') },
                 { id: 2, latlng: { latitude: -22.8964624, longitude: -43.1989773 }, image: require('../assets/pin_br.png') },
@@ -19,6 +30,11 @@ export default class HomeScreen extends Component {
         };
     }
 
+    onPressMarker = (marker) => {
+        debugger
+        marker.image = require('../assets/pin_br_clicked.png');
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -26,21 +42,48 @@ export default class HomeScreen extends Component {
 
                 <MapView
                     style={styles.map}
-                    initialRegion={{
-                        latitude: -22.9024809,
-                        longitude: -43.1988859,
-                        latitudeDelta: 0.0222,
-                        longitudeDelta: 0.0221,
-                    }}
+                    region={this.state.region}
                 >
                     {this.state.markers.map(marker => (
                         <Marker
                             key={marker.id}
                             coordinate={marker.latlng}
                             image={marker.image}
+                            onPress={() => this.onPressMarker(marker)}
                         />
                     ))}
                 </MapView>
+
+                <LinearGradient colors={['#008542', '#026A6A']} style={styles.markerDetailContainer}>
+                    <View style={styles.arrowBall}>
+                        <Icon name="arrow-down" size={30} color="#fff" />
+                    </View>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', paddingTop: 16 }}>
+                        <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: 32 }}>
+                            <Image source={require('../assets/gas.png')} style={{ height: 30, width: 30 }} />
+                        </View>
+
+                        <View style={{ flex: 4, alignSelf: 'flex-start' }}>
+                            <Text style={styles.textWhiteBold}>P SANTA CLARA</Text>
+                            <Text style={styles.textWhite}>AV. ATLANTICA ESQ.C/AV.SANTA CLARA S/N</Text>
+                        </View>
+                    </View>
+
+                    <View style={{ width: '100%', justifyContent: 'center', textAlign: 'center', alignItems: 'flex-start', paddingLeft: 32, paddingTop: 16 }}>
+                        <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold', paddingBottom: 16 }}>Serviços</Text>
+
+                        <View style={{ flexDirection: 'row', width: '100%' }}>
+                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                        </View>
+                    </View>
+
+                    <TouchableHighlight style={{ borderWidth: 1, borderColor: '#fff', paddingTop: 16, paddingBottom: 16, paddingLeft: 32, paddingRight: 32, borderRadius: 100, marginTop: 16 }}>
+                        <Text style={{ color: 'white', fontSize: 20 }}>ABASTECER</Text>
+                    </TouchableHighlight>
+                </LinearGradient>
             </SafeAreaView>
         );
     }
@@ -55,6 +98,39 @@ const styles = StyleSheet.create({
     map: {
         flex: 1,
         width: '100%',
-        height: '100%'
+        height: '100%',
+        backgroundColor: 'transparent'
+    },
+    arrowBall: {
+        opacity: 0.95,
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        left: (width / 2) - 25,
+        top: -25,
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#008542'
+    },
+    markerDetailContainer: {
+        flexDirection: 'column',
+        opacity: 0.95,
+        position: 'absolute',
+        height: 300,
+        paddingTop: 16,
+        alignItems: 'center',
+        width: '100%',
+        bottom: 0
+    },
+    textWhiteBold: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    textWhite: {
+        color: '#fff',
+        fontSize: 20,
+        flexWrap: 'wrap',
     }
 });
