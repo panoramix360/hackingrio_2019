@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import MapView from 'react-native-maps';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -9,7 +10,15 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Bem vindo, Lucas</Text>
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
             </View>
         );
     }
@@ -18,12 +27,11 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
-    title: {
-        fontFamily: 'Roboto',
-        fontSize: 48
+    map: {
+        width: '100%',
+        height: '100%'
     }
 });

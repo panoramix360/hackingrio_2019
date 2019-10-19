@@ -5,7 +5,6 @@
  * @format
  * @flow
  */
-import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { HomeScreen } from './screens';
@@ -14,7 +13,8 @@ const MainNavigator = createStackNavigator({
     Home: { screen: HomeScreen },
 },
     {
-        initialRouteName: 'Home'
+        initialRouteName: 'Home',
+        headerMode: 'none'
     });
 
 
