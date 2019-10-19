@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Text, Image } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
+import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import { HeaderBar, IconBall } from '../components';
 import { SafeAreaView } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -26,13 +25,30 @@ export default class HomeScreen extends Component {
                 { id: 3, latlng: { latitude: -22.9005607, longitude: -43.1946105 }, image: require('../assets/pin_br.png') },
                 { id: 4, latlng: { latitude: -22.9008178, longitude: -43.2016436 }, image: require('../assets/pin_br.png') },
                 { id: 5, latlng: { latitude: -22.9024809, longitude: -43.1988859 }, image: require('../assets/pin_user.png') }
-            ]
+            ],
+            y: new Animated.Value(350),
         };
     }
 
     onPressMarker = (marker) => {
-        debugger
-        marker.image = require('../assets/pin_br_clicked.png');
+        Animated.spring(this.state.y, {
+            toValue: 0,
+        }).start();
+        this.map.fitToCoordinates([{
+            latitude: marker.latlng.latitude,
+            longitude: marker.latlng.longitude
+        }], {
+            edgePadding: { top: 100, right: 100, bottom: 800, left: 100 },
+            animated: true,
+        });
+    }
+
+    onPressClose = () => {
+        Animated.spring(this.state.y, {
+            toValue: 350,
+        }).start();
+        const { region } = this.state;
+        this.map.animateToRegion(region, 2000);
     }
 
     render() {
@@ -41,6 +57,9 @@ export default class HomeScreen extends Component {
                 <HeaderBar />
 
                 <MapView
+                    ref={ref => {
+                        this.map = ref;
+                    }}
                     style={styles.map}
                     region={this.state.region}
                 >
@@ -54,36 +73,44 @@ export default class HomeScreen extends Component {
                     ))}
                 </MapView>
 
-                <LinearGradient colors={['#008542', '#026A6A']} style={styles.markerDetailContainer}>
-                    <View style={styles.arrowBall}>
-                        <Icon name="arrow-down" size={30} color="#fff" />
-                    </View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', paddingTop: 16 }}>
-                        <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: 32 }}>
-                            <Image source={require('../assets/gas.png')} style={{ height: 30, width: 30 }} />
+                <Animated.View style={[styles.markerDetailContainer, {
+                    transform: [
+                        {
+                            translateY: this.state.y
+                        }
+                    ]
+                }]}>
+                    <LinearGradient colors={['#008542', '#026A6A']} style={styles.markerDetailContainer}>
+                        <View style={styles.arrowBall}>
+                            <Icon name="arrow-down" size={30} color="#fff" onPress={this.onPressClose} />
                         </View>
 
-                        <View style={{ flex: 4, alignSelf: 'flex-start' }}>
-                            <Text style={styles.textWhiteBold}>P SANTA CLARA</Text>
-                            <Text style={styles.textWhite}>AV. ATLANTICA ESQ.C/AV.SANTA CLARA S/N</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', paddingTop: 16 }}>
+                            <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: 32 }}>
+                                <Image source={require('../assets/gas.png')} style={{ height: 30, width: 30 }} />
+                            </View>
+
+                            <View style={{ flex: 4, alignSelf: 'flex-start' }}>
+                                <Text style={styles.textWhiteBold}>P SANTA CLARA</Text>
+                                <Text style={styles.textWhite}>AV. ATLANTICA ESQ.C/AV.SANTA CLARA S/N</Text>
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={{ width: '100%', justifyContent: 'center', textAlign: 'center', alignItems: 'flex-start', paddingLeft: 32, paddingTop: 16 }}>
-                        <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold', paddingBottom: 16 }}>Serviços</Text>
+                        <View style={{ width: '100%', justifyContent: 'center', textAlign: 'center', alignItems: 'flex-start', paddingLeft: 32, paddingTop: 16 }}>
+                            <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold', paddingBottom: 16 }}>Serviços</Text>
 
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
-                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
-                            <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                                <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                                <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                                <Image source={require('../assets/restaurant.png')} style={{ height: 50, width: 50, marginRight: 16 }} />
+                            </View>
                         </View>
-                    </View>
 
-                    <TouchableHighlight style={{ borderWidth: 1, borderColor: '#fff', paddingTop: 16, paddingBottom: 16, paddingLeft: 32, paddingRight: 32, borderRadius: 100, marginTop: 16 }}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>ABASTECER</Text>
-                    </TouchableHighlight>
-                </LinearGradient>
+                        <TouchableHighlight style={{ borderWidth: 1, borderColor: '#fff', paddingTop: 16, paddingBottom: 16, paddingLeft: 32, paddingRight: 32, borderRadius: 100, marginTop: 16 }}>
+                            <Text style={{ color: 'white', fontSize: 20 }}>ABASTECER</Text>
+                        </TouchableHighlight>
+                    </LinearGradient>
+                </Animated.View>
             </SafeAreaView>
         );
     }
