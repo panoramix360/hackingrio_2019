@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 class NumberBox extends Component {
     render() {
         return (
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.props.onPress}>
                 <Text style={styles.text}>{this.props.text}</Text>
             </TouchableOpacity>
         );
