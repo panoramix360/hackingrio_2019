@@ -7,14 +7,15 @@
  */
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { HomeScreen, RefuelScreen } from './screens';
+import { HomeScreen, RefuelScreen, SuccessScreen } from './screens';
 
 const MainNavigator = createStackNavigator({
     Home: { screen: HomeScreen },
-    Refuel: { screen: RefuelScreen }
+    Refuel: { screen: RefuelScreen },
+    Success: { screen: SuccessScreen },
 },
     {
-        initialRouteName: 'Refuel',
+        initialRouteName: 'Home',
         headerMode: 'none'
     });
 
