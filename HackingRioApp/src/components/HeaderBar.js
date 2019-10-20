@@ -7,13 +7,16 @@ class HeaderBar extends Component {
         return (
             <LinearGradient colors={['#F9F9F9', '#ECECEC']} style={styles.container}>
                 <View style={styles.left}>
-                    <Text style={styles.welcome}>Boa tarde, <Text style={styles.welcomeName}>Marcus</Text></Text>
+                    <Text style={styles.welcome}>{this.props.welcome} <Text style={styles.welcomeName}>{this.props.welcomeName}</Text></Text>
                 </View>
 
-                <View style={styles.right}>
-                    <Text style={styles.balanceLabel}>Meu saldo</Text>
-                    <Text style={styles.balance}>R$160,84</Text>
-                </View>
+                {
+                    this.props.balance &&
+                    <View style={styles.right}>
+                        <Text style={styles.balanceLabel}>Meu saldo</Text>
+                        <Text style={styles.balance}>R$160,84</Text>
+                    </View>
+                }
             </LinearGradient>
         );
     }

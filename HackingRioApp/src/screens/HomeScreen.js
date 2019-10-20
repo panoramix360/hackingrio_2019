@@ -41,7 +41,7 @@ export default class HomeScreen extends Component {
             edgePadding: { top: 100, right: 100, bottom: 800, left: 100 },
             animated: true,
         });
-    }
+    };
 
     onPressClose = () => {
         Animated.spring(this.state.y, {
@@ -49,12 +49,16 @@ export default class HomeScreen extends Component {
         }).start();
         const { region } = this.state;
         this.map.animateToRegion(region, 2000);
-    }
+    };
+
+    onPressRefuel = () => {
+        this.props.navigation.navigate('Refuel');
+    };
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <HeaderBar />
+                <HeaderBar welcome="Boa tarde," welcomeName="Marcus" balance="R$160,84" />
 
                 <MapView
                     ref={ref => {
@@ -106,7 +110,7 @@ export default class HomeScreen extends Component {
                             </View>
                         </View>
 
-                        <TouchableHighlight style={{ borderWidth: 1, borderColor: '#fff', paddingTop: 16, paddingBottom: 16, paddingLeft: 32, paddingRight: 32, borderRadius: 100, marginTop: 16 }}>
+                        <TouchableHighlight onPress={this.onPressRefuel} style={{ borderWidth: 1, borderColor: '#fff', paddingTop: 16, paddingBottom: 16, paddingLeft: 32, paddingRight: 32, borderRadius: 100, marginTop: 16 }}>
                             <Text style={{ color: 'white', fontSize: 20 }}>ABASTECER</Text>
                         </TouchableHighlight>
                     </LinearGradient>
