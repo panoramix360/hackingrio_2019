@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableOpacity, TouchableHighlight } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import { HeaderBar, IconBall } from '../components';
 import { SafeAreaView } from 'react-navigation';
@@ -76,6 +76,10 @@ export default class HomeScreen extends Component {
                         />
                     ))}
                 </MapView>
+
+                <TouchableOpacity style={styles.floatingButton}>
+                    <Image source={require('../assets/button_user.png')} style={{ width: 100, height: 100 }} />
+                </TouchableOpacity>
 
                 <Animated.View style={[styles.markerDetailContainer, {
                     transform: [
@@ -163,5 +167,10 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         flexWrap: 'wrap',
+    },
+    floatingButton: {
+        position: 'absolute',
+        bottom: 16,
+        left: (width / 2) - 50,
     }
 });
