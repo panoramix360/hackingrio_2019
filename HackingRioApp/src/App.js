@@ -7,7 +7,7 @@
  */
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { HomeScreen, RefuelScreen, SuccessScreen, IntroScreen, LogoScreen, NetworkScreen, BuyCreditScreen } from './screens';
+import { HomeScreen, RefuelScreen, SuccessScreen, IntroScreen, LogoScreen, NetworkScreen, BuyCreditScreen, ExtractScreen } from './screens';
 
 const MainNavigator = createStackNavigator({
     Intro: { screen: IntroScreen },
@@ -17,6 +17,7 @@ const MainNavigator = createStackNavigator({
     BuyCredit: { screen: BuyCreditScreen },
     Refuel: { screen: RefuelScreen },
     Success: { screen: SuccessScreen },
+    Extract: { screen: ExtractScreen }
 },
     {
         initialRouteName: 'Intro',
