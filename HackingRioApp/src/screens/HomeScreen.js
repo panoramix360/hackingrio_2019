@@ -5,6 +5,7 @@ import { HeaderBar, IconBall } from '../components';
 import { SafeAreaView } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import database from '@react-native-firebase/database';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -19,16 +20,31 @@ export default class HomeScreen extends Component {
                 latitudeDelta: 0.0222,
                 longitudeDelta: 0.0221,
             },
-            markers: [
-                { id: 1, latlng: { latitude: -22.8975487, longitude: -43.2058189 }, image: require('../assets/pin_br.png') },
-                { id: 2, latlng: { latitude: -22.8964624, longitude: -43.1989773 }, image: require('../assets/pin_br.png') },
-                { id: 3, latlng: { latitude: -22.9005607, longitude: -43.1946105 }, image: require('../assets/pin_br.png') },
-                { id: 4, latlng: { latitude: -22.9008178, longitude: -43.2016436 }, image: require('../assets/pin_br.png') },
-                { id: 5, latlng: { latitude: -22.9024809, longitude: -43.1988859 }, image: require('../assets/pin_user.png') }
-            ],
+            pinUser: { id: 5, latlng: { latitude: -22.9024809, longitude: -43.1988859 }, image: require('../assets/pin_user.png') },
+            markers: [],
             y: new Animated.Value(350),
         };
     }
+
+    componentDidMount() {
+        this.loadSnapshotFirebase();
+    }
+
+    loadSnapshotFirebase = () => {
+        const ref = database().ref('/');
+        ref.on('value', (snapshot) => {
+            let responseMapped = snapshot.val().map((item) => {
+                return {
+                    ...item,
+                    image: require('../assets/pin_br.png')
+                }
+            });
+            responseMapped.push(this.state.pinUser);
+            this.setState({
+                markers: responseMapped
+            });
+        });
+    };
 
     onPressMarker = (marker) => {
         Animated.spring(this.state.y, {
