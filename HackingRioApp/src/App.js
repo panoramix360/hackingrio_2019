@@ -5,13 +5,20 @@
  * @format
  * @flow
  */
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { HomeScreen, RefuelScreen, SuccessScreen, IntroScreen, LogoScreen, NetworkScreen, BuyCreditScreen, ExtractScreen } from './screens';
 
-const MainNavigator = createStackNavigator({
+const IntroNavigator = createStackNavigator({
     Intro: { screen: IntroScreen },
     Logo: { screen: LogoScreen },
+},
+    {
+        initialRouteName: 'Intro',
+        headerMode: 'none'
+    });
+
+const MainNavigator = createStackNavigator({
     Home: { screen: HomeScreen },
     Network: { screen: NetworkScreen },
     BuyCredit: { screen: BuyCreditScreen },
@@ -20,9 +27,14 @@ const MainNavigator = createStackNavigator({
     Extract: { screen: ExtractScreen }
 },
     {
-        initialRouteName: 'Intro',
+        initialRouteName: 'Home',
         headerMode: 'none'
     });
 
+const SwitchNavigator = createSwitchNavigator({
+    Intro: IntroNavigator,
+    Main: MainNavigator
+});
 
-export default createAppContainer(MainNavigator);
+
+export default createAppContainer(SwitchNavigator);
