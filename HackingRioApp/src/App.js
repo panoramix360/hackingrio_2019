@@ -23,7 +23,6 @@ const MainNavigator = createStackNavigator({
     Network: { screen: NetworkScreen },
     BuyCredit: { screen: BuyCreditScreen },
     Refuel: { screen: RefuelScreen },
-    Success: { screen: SuccessScreen },
     Extract: { screen: ExtractScreen }
 },
     {
@@ -31,9 +30,18 @@ const MainNavigator = createStackNavigator({
         headerMode: 'none'
     });
 
+const SuccessNavigator = createStackNavigator({
+    Success: { screen: SuccessScreen },
+},
+    {
+        initialRouteName: 'Success',
+        headerMode: 'none'
+    });
+
 const SwitchNavigator = createSwitchNavigator({
     Intro: IntroNavigator,
-    Main: MainNavigator
+    Main: MainNavigator,
+    Success: SuccessNavigator
 });
 
 

@@ -53,6 +53,10 @@ export default class RefuelScreen extends Component {
         );
     }
 
+    onPressRefuel = () => {
+        this.props.navigation.navigate('Success');
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>

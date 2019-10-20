@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default class SuccessScreen extends Component {
@@ -19,12 +19,20 @@ export default class SuccessScreen extends Component {
         }).start()
     }
 
+    onPressHome = () => {
+        this.props.navigation.navigate('Home');
+    }
+
     render() {
         return (
             <LinearGradient colors={['#16B565', '#158181']} style={styles.container}>
-                <Animated.Text style={[styles.title, {
+                <Animated.View style={[styles.title, {
                     opacity: this.state.opacity
-                }]}>teste</Animated.Text>
+                }]}>
+                    <TouchableOpacity onPress={this.onPressHome}>
+                    <Image source={require('../assets/check.png')} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                    </TouchableOpacity>
+                </Animated.View>
             </LinearGradient>
         );
     }
