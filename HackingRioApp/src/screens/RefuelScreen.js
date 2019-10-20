@@ -76,7 +76,7 @@ export default class RefuelScreen extends Component {
                     ref={(c) => { this._carousel = c; }}
                     data={this.state.entries}
                     renderItem={this._renderItem}
-                    sliderWidth={300}
+                    sliderWidth={400}
                     itemWidth={300}
                     layout={'default'}
                 />

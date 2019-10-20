@@ -31,7 +31,7 @@ export default class IntroScreen extends Component {
                 <Animated.View style={{
                     opacity: this.state.opacity
                 }}>
-                    <Image source={require('../assets/logo_petrobras.png')} style={{ width: 280, height: 240 }} />
+                    <Image source={require('../assets/logo-premmia.png')} style={{ width: 280, height: 240, resizeMode: 'contain' }} />
                 </Animated.View>
             </LinearGradient>
         );
