@@ -7,7 +7,7 @@
  */
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { HomeScreen, RefuelScreen, SuccessScreen, IntroScreen, LogoScreen, NetworkScreen, BuyCreditScreen, ExtractScreen } from './screens';
+import { HomeScreen, RefuelScreen, SuccessScreen, IntroScreen, LogoScreen, NetworkScreen, BuyCreditScreen, ExtractScreen, SuccessBuyScreen } from './screens';
 
 const IntroNavigator = createStackNavigator({
     Intro: { screen: IntroScreen },
@@ -38,10 +38,19 @@ const SuccessNavigator = createStackNavigator({
         headerMode: 'none'
     });
 
+const SuccessBuyNavigator = createStackNavigator({
+    SuccessBuy: { screen: SuccessBuyScreen },
+},
+    {
+        initialRouteName: 'SuccessBuy',
+        headerMode: 'none'
+    });
+
 const SwitchNavigator = createSwitchNavigator({
     Intro: IntroNavigator,
     Main: MainNavigator,
-    Success: SuccessNavigator
+    Success: SuccessNavigator,
+    SuccessBuy: SuccessBuyNavigator
 });
 
 

@@ -11,6 +11,10 @@ export default class BuyCreditScreen extends Component {
         this.state = {};
     }
 
+    onPressBuy = () => {
+        this.props.navigation.navigate('SuccessBuy');
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -48,7 +52,7 @@ export default class BuyCreditScreen extends Component {
                         <Text style={{ fontSize: 24, color: '#818181', fontWeight: 'bold' }}>Saldo Total: 345,589</Text>
                     </View>
 
-                    <TouchableOpacity style={[styles.buttonGreen, { marginBottom: 16 }]}>
+                    <TouchableOpacity style={[styles.buttonGreen, { marginBottom: 16 }]} onPress={this.onPressBuy}>
                         <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>Comprar</Text>
                     </TouchableOpacity>
                 </View>

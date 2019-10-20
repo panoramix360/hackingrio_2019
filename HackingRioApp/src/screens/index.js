@@ -6,6 +6,7 @@ import LogoScreen from './LogoScreen';
 import NetworkScreen from './NetworkScreen';
 import BuyCreditScreen from './BuyCreditScreen';
 import ExtractScreen from './ExtractScreen';
+import SuccessBuyScreen from './SuccessBuyScreen';
 
 export {
     IntroScreen,
@@ -15,5 +16,6 @@ export {
     LogoScreen,
     NetworkScreen,
     BuyCreditScreen,
-    ExtractScreen
+    ExtractScreen,
+    SuccessBuyScreen
 };
