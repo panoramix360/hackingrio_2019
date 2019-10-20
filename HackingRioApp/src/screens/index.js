@@ -3,11 +3,13 @@ import HomeScreen from './HomeScreen';
 import RefuelScreen from './RefuelScreen';
 import SuccessScreen from './SuccessScreen';
 import LogoScreen from './LogoScreen';
+import NetworkScreen from './NetworkScreen';
 
 export {
     IntroScreen,
     HomeScreen,
     RefuelScreen,
     SuccessScreen,
-    LogoScreen
+    LogoScreen,
+    NetworkScreen
 };

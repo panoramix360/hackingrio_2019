@@ -55,6 +55,10 @@ export default class HomeScreen extends Component {
         this.props.navigation.navigate('Refuel');
     };
 
+    onPressNetwork = () => {
+        this.props.navigation.navigate('Network');
+    };
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -77,7 +81,7 @@ export default class HomeScreen extends Component {
                     ))}
                 </MapView>
 
-                <TouchableOpacity style={styles.floatingButton}>
+                <TouchableOpacity style={styles.floatingButton} onPress={this.onPressNetwork}>
                     <Image source={require('../assets/button_user.png')} style={{ width: 100, height: 100 }} />
                 </TouchableOpacity>
 
