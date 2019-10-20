@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 
 class NetworkButton extends Component {
     render() {
         return (
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.props.onPress}>
                 <Image source={this.props.src} style={styles.image} />
                 <Text style={styles.text}>{this.props.text}</Text>
             </TouchableOpacity>
