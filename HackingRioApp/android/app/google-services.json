@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "684264476516",
+    "firebase_url": "https://premmiapre.firebaseio.com",
+    "project_id": "premmiapre",
+    "storage_bucket": "premmiapre.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684264476516:android:f543ac6b791d331492f471",
+        "android_client_info": {
+          "package_name": "com.hackingrioapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684264476516-3f5i2g9ouof1r7bo3sefga5v59va2leh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7NnovmnRjXAwB-f3_padeprOyS-Rxpn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684264476516-3f5i2g9ouof1r7bo3sefga5v59va2leh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
