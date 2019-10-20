@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableOpacity, TouchableHighlight, Shortid } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import { HeaderBar, IconBall } from '../components';
 import { SafeAreaView } from 'react-navigation';
@@ -20,6 +20,8 @@ export default class HomeScreen extends Component {
                 latitudeDelta: 0.0222,
                 longitudeDelta: 0.0221,
             },
+            gasStationDescription: '',
+            gasStationAddress: '',
             pinUser: { id: 5, latlng: { latitude: -22.9024809, longitude: -43.1988859 }, image: require('../assets/pin_user.png') },
             markers: [],
             y: new Animated.Value(350),
@@ -47,16 +49,23 @@ export default class HomeScreen extends Component {
     };
 
     onPressMarker = (marker) => {
-        Animated.spring(this.state.y, {
-            toValue: 0,
-        }).start();
-        this.map.fitToCoordinates([{
-            latitude: marker.latlng.latitude,
-            longitude: marker.latlng.longitude
-        }], {
-            edgePadding: { top: 100, right: 100, bottom: 800, left: 100 },
-            animated: true,
+        this.setState({
+            gasStationDescription: marker.descricao,
+            gasStationAddress: marker.logradouro
         });
+
+        setTimeout(() => {
+            Animated.spring(this.state.y, {
+                toValue: 0,
+            }).start();
+            this.map.fitToCoordinates([{
+                latitude: marker.latlng.latitude,
+                longitude: marker.latlng.longitude
+            }], {
+                edgePadding: { top: 100, right: 100, bottom: 800, left: 100 },
+                animated: true,
+            });
+        }, 50);
     };
 
     onPressClose = () => {
@@ -87,9 +96,9 @@ export default class HomeScreen extends Component {
                     style={styles.map}
                     region={this.state.region}
                 >
-                    {this.state.markers.map(marker => (
+                    {this.state.markers.map((marker, i) => (
                         <Marker
-                            key={marker.id}
+                            key={i}
                             coordinate={marker.latlng}
                             image={marker.image}
                             onPress={() => this.onPressMarker(marker)}
@@ -119,8 +128,8 @@ export default class HomeScreen extends Component {
                             </View>
 
                             <View style={{ flex: 4, alignSelf: 'flex-start' }}>
-                                <Text style={styles.textWhiteBold}>P SANTA CLARA</Text>
-                                <Text style={styles.textWhite}>AV. ATLANTICA ESQ.C/AV.SANTA CLARA S/N</Text>
+                                <Text style={styles.textWhiteBold}>{this.state.gasStationDescription}</Text>
+                                <Text style={styles.textWhite}>{this.state.gasStationAddress}</Text>
                             </View>
                         </View>
 

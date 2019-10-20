@@ -43,8 +43,7 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         paddingLeft: 16,
         justifyContent: 'flex-start',
-        paddingTop: 16,
-        marginBottom: 16
+        paddingTop: 16
     },
     container: {
         elevation: 20,
