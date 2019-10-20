@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default class SuccessScreen extends Component {
+export default class IntroScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -19,12 +19,20 @@ export default class SuccessScreen extends Component {
         }).start()
     }
 
+    onPressInit = () => {
+        this.props.navigation.navigate('Logo');
+    };
+
     render() {
         return (
             <LinearGradient colors={['#16B565', '#158181']} style={styles.container}>
-                <Animated.Text style={[styles.title, {
+                <Animated.View style={{
                     opacity: this.state.opacity
-                }]}>teste</Animated.Text>
+                }}>
+                    <TouchableHighlight onPress={this.onPressInit} style={styles.button}>
+                        <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>INICIAR</Text>
+                    </TouchableHighlight>
+                </Animated.View>
             </LinearGradient>
         );
     }
@@ -36,8 +44,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    title: {
-        color: 'white',
-        fontSize: 64
+    button: {
+        borderWidth: 1,
+        borderColor: '#fff',
+        paddingTop: 16,
+        width: 300,
+        paddingBottom: 16,
+        paddingLeft: 32,
+        paddingRight: 32,
+        borderRadius: 100,
+        marginTop: 16
     }
 });

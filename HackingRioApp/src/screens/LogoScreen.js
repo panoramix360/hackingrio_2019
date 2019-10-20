@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default class SuccessScreen extends Component {
+export default class IntroScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -16,15 +16,23 @@ export default class SuccessScreen extends Component {
             toValue: 1,
             duration: 2000,
             useNativeDriver: true,
-        }).start()
+        }).start();
+
+        setTimeout(() => {
+            this.props.navigation.navigate('Home');
+        }, 2500);
     }
+
+    
 
     render() {
         return (
             <LinearGradient colors={['#16B565', '#158181']} style={styles.container}>
-                <Animated.Text style={[styles.title, {
+                <Animated.View style={{
                     opacity: this.state.opacity
-                }]}>teste</Animated.Text>
+                }}>
+                    <Image source={require('../assets/logo_petrobras.png')} style={{ width: 280, height: 240 }} />
+                </Animated.View>
             </LinearGradient>
         );
     }
@@ -35,9 +43,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    title: {
-        color: 'white',
-        fontSize: 64
     }
 });
