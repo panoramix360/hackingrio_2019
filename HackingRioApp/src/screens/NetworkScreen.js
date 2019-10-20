@@ -12,6 +12,10 @@ export default class NetworkScreen extends Component {
         };
     }
 
+    onPressBuyCredit = () => {
+        this.props.navigation.navigate('BuyCredit');
+    };
+
     onPressRefuel = () => {
         this.props.navigation.navigate('Refuel');
     };
@@ -22,7 +26,7 @@ export default class NetworkScreen extends Component {
                 <HeaderBar welcomeName="Sua Rede" back />
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-                        <NetworkButton text="Comprar crédito" src={require('../assets/wallet.png')} />
+                        <NetworkButton text="Comprar crédito" onPress={() => this.onPressBuyCredit()} src={require('../assets/wallet.png')} />
                         <NetworkButton text="Abastecimento" onPress={() => this.onPressRefuel()} src={require('../assets/fuel.png')} />
                         <NetworkButton text="Extrato" src={require('../assets/wishlist.png')} />
                     </View>

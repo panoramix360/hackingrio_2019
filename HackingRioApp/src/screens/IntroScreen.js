@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableHighlight } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image, Animated, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default class IntroScreen extends Component {
@@ -29,9 +29,9 @@ export default class IntroScreen extends Component {
                 <Animated.View style={{
                     opacity: this.state.opacity
                 }}>
-                    <TouchableHighlight onPress={this.onPressInit} style={styles.button}>
+                    <TouchableOpacity onPress={this.onPressInit} style={styles.button}>
                         <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>INICIAR</Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </Animated.View>
             </LinearGradient>
         );
