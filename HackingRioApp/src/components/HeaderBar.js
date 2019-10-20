@@ -1,35 +1,59 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { withNavigation } from 'react-navigation';
 
 class HeaderBar extends Component {
+    onPressBack = () => {
+        this.props.navigation.goBack();
+    };
+
     render() {
         return (
-            <LinearGradient colors={['#F9F9F9', '#ECECEC']} style={styles.container}>
-                <View style={styles.left}>
-                    <Text style={styles.welcome}>{this.props.welcome} <Text style={styles.welcomeName}>{this.props.welcomeName}</Text></Text>
-                </View>
-
+            <LinearGradient colors={['#F9F9F9', '#ECECEC']} style={styles.linear}>
                 {
-                    this.props.balance &&
-                    <View style={styles.right}>
-                        <Text style={styles.balanceLabel}>Meu saldo</Text>
-                        <Text style={styles.balance}>R$160,84</Text>
-                    </View>
+                    this.props.back &&
+                    <TouchableOpacity onPress={this.onPressBack} style={styles.backArrow}>
+                        <Icon name="arrow-left" size={30} color="#434343" onPress={this.onPressClose} />
+                    </TouchableOpacity>
                 }
+
+                <View style={styles.container}>
+                    <View style={styles.left}>
+                        <Text style={styles.welcome}>{this.props.welcome} <Text style={styles.welcomeName}>{this.props.welcomeName}</Text></Text>
+                    </View>
+
+                    {
+                        this.props.balance &&
+                        <View style={styles.right}>
+                            <Text style={styles.balanceLabel}>Meu saldo</Text>
+                            <Text style={styles.balance}>R$160,84</Text>
+                        </View>
+                    }
+                </View>
             </LinearGradient>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    linear: {
+        height: 120,
         paddingRight: 16,
         paddingLeft: 16,
-        height: 120,
-        elevation: 5,
+        justifyContent: 'flex-start',
+        paddingTop: 16,
+        marginBottom: 16
+    },
+    container: {
+        elevation: 20,
         flexDirection: 'row',
+        width: '100%',
         alignItems: 'center',
+    },
+    backArrow: {
+        marginBottom: 16
     },
     left: {
         flex: 1,
@@ -62,4 +86,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HeaderBar;
+export default withNavigation(HeaderBar);

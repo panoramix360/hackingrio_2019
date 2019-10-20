@@ -15,7 +15,7 @@ export default class NetworkScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <HeaderBar welcomeName="Sua Rede" />
+                <HeaderBar welcomeName="Sua Rede" back />
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <View style={{ flex: 1, justifyContent: 'flex-start' }}>
                         <NetworkButton text="Comprar crédito" src={require('../assets/wallet.png')} />
