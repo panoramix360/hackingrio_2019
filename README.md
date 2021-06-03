@@ -1,1 +1,3 @@
-# hackingrio_2019
+# Hacking Rio 2019
+
+React Native project made on Hacking Rio competition
